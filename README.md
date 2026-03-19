@@ -70,6 +70,5 @@ bank-churn-analysis/
 │   └── analysis.ipynb
 ├── queries/
 │   └── SQLanalysis.sql
-├── outputs/
 └── README.md
 ```
