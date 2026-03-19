@@ -9,7 +9,7 @@ SELECT  CASE WHEN Age > 18 AND Age <= 32
              THEN 'Prime_Age'
              WHEN Age > 37 AND Age <= 44
              THEN 'Mid_Career'
-             ELSE 'Mature Clients' END AS age_group,
+             ELSE 'Mature_Clients' END AS age_group,
         COUNT(*) AS number_of_clients,
         ROUND((SUM(Exited)::numeric / COUNT(1)::numeric) * 100,2) AS churn_percentage        
     FROM churn
@@ -48,14 +48,15 @@ ORDER BY 3 DESC
 SELECT CASE WHEN is_active_member = 0
             THEN 'Inactive_member'
             ELSE 'Active_member'
-            END AS custumer_situation,
+            END AS customer_situation,
        COUNT(*) AS number_of_clients, 
        ROUND((SUM(Exited)::numeric / COUNT(1)::numeric) * 100, 2) AS churn_percentage       
     FROM churn
 GROUP BY 1
 ORDER BY 3 DESC
 
--- Since the group with most churn rate are mature members, we must check if there's something that differs from those in this group age who stay and those who churn
+-- Deep dive: comparing avg balance and salary between churned and retained mature clients (45+)
+-- to determine whether financial profile drives churn in this age group
 SELECT CASE WHEN Exited = 0
             THEN 'Stay'
             WHEN Exited = 1
